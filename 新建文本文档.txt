@@ -1,0 +1,29 @@
+<script>
+    $(function () {
+      // 给登入按钮注册点击事件
+      $('.input_sub').on('click', function (e) {
+        // 阻止默认事件
+        e.preventDefault()
+        // 获取用户输入的数据
+        var username = $('.input_txt').val().trim()
+        var password = $('.input_pass').val().trim()
+        // 发送ajax
+        $.ajax({
+          type: 'post',
+          url: BigNew.user_login,
+          data: {
+            username: username,
+            password: password
+          },
+          success: function (backData) {
+            if (backData.code == 200) {
+              window.localStorage.setItem('token', backData.token)
+              window.location.href = './index.html'
+              console.log(backData);
+            }
+
+          }
+        })
+      })
+    })
+  </script>
